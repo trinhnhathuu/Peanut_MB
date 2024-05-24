@@ -32,26 +32,7 @@ class DLichHenPage extends GetView<DLichHenController>{
               ),
               backgroundColor: ColorPeanut.APPBAR_BACKGROUND,
             ),
-            floatingActionButton: GestureDetector(
-              child: GestureDetector(
-                onTap: (){
-                  Get.toNamed(AppRoutes.U_DANG_KY_LICH_HEN);
-
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  width: DeviceUtils.getScaledWidth(context, 0.2),
-                  height: DeviceUtils.getScaledHeight(context, 0.05),
-                  decoration: BoxDecoration(
-                      color: ColorPeanut.BUTTON_DONGY,
-                      borderRadius: BorderRadius.circular(100.0)
-                  ),
-                  child: Text('Đặt lịch',style: TextStyle(
-                      color: Colors.white
-                  ),),
-                ),
-              ),
-            ),
+            
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(

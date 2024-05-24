@@ -20,17 +20,19 @@ import '../../../../utils/app_constants.dart';
 import '../../../basewidget/googleMap/chon_vi_tri_page.dart';
 
 class DangKyBacSiController extends GetxController {
-  bool isLoading = false;
+  bool isLoading = true;
   TextEditingController diaChiCuTheController = TextEditingController();
   TextEditingController hoTenController = TextEditingController();
   TextEditingController soDienThoaiController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController benhVienController = TextEditingController();
   TextEditingController khoaController = TextEditingController();
+  HospitalResponse? selectedHospital;
 
   double? lng;
   double? lat;
   Position? currentLocation;
+  ProvinceResponse? selectedProvince;
 
   dynamic result;
   RxString imageUrl = ''.obs;
@@ -50,7 +52,6 @@ class DangKyBacSiController extends GetxController {
   void onInit() {
     super.onInit();
     getProvinces();
-    getHospitals();
     getData();
   }
 
@@ -81,15 +82,30 @@ class DangKyBacSiController extends GetxController {
     });
   }
 
-  void getHospitals() async {
-    hospitalProvider.getHospitals(onSuccess: (data) {
-      hospitals = data;
-      print(hospitals[0].toJson());
-      update();
-    }, onError: (err) {
-      print(err);
-    });
+  void onchangeProvince(ProvinceResponse province) {
+    selectedHospital = null;
+    hospitals.clear();
+    selectedProvince = province;
+    getHospitals(province.code.toString());
+    update();
   }
+
+  void onChangeHospital(HospitalResponse hospital) {
+    selectedHospital = hospital;
+    update();
+  }
+
+ void getHospitals(String code) async {
+    hospitalProvider.getHospitalsByProvinceCode(
+        code: code,
+        onSuccess: (data) {
+          hospitals = data;
+          isLoading = false;
+          update();
+        },
+        onError: (err) {});
+  }
+
 
   void getAnh() async {
     String? imageUrlValue = await imageUploader.uploadImage();
@@ -146,8 +162,8 @@ class DangKyBacSiController extends GetxController {
     doctorSignUpRequest.fullName = hoTenController.text;
     doctorSignUpRequest.phoneWork = soDienThoaiController.text;
     doctorSignUpRequest.emailWork = emailController.text;
-    doctorSignUpRequest.hospitalName = benhVienController.text;
-    doctorSignUpRequest.appointment = khoaController.text;
+    doctorSignUpRequest.idHospital = selectedHospital!.id;
+    doctorSignUpRequest.department = khoaController.text;
     doctorSignUpRequest.hospitalAddress = diaChiCuTheController.text;
     doctorSignUpRequest.imageCard = imgList;
     doctorSignUpRequest.lat = lat;
@@ -164,7 +180,7 @@ class DangKyBacSiController extends GetxController {
           update();
           Get.offAllNamed(AppRoutes.U_DASHBOARD);
           Get.snackbar(
-            'Thống báo',
+            'Thông báo',
             'Đăng ký tài khoản bác sĩ thành công ',
           );
         },

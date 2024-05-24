@@ -3,20 +3,21 @@ import 'package:flutter/material.dart';
 
 import '../../utils/demensions.dart';
 
-class CustomDropdown extends StatefulWidget {
-  final List<String> items;
-  final String? selectedItem;
-  final Function(String?) onChanged;
+class CustomDropdown<T> extends StatefulWidget {
+  final List<T> items;
+  final T? selectedItem;
+  final Function(T?) onChanged;
   final String? labelText;
   final String? hintText;
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final double? height;
   final double? widthDropMenuItem;
-  final TextStyle? textStyle; // Thêm thuộc tính textStyle
-  final TextStyle? labelTextStyle; // Thêm thuộc tính labelTextStyle
-  final TextStyle? hintTextStyle; // Thêm thuộc tính hintTextStyle
-
+  final TextStyle? textStyle;
+  final TextStyle? labelTextStyle;
+  final TextStyle? hintTextStyle;
+  final Widget Function(T)? itemBuilder; 
+  final BorderRadius?  borderRadius;// Optional custom item builder
 
   const CustomDropdown({
     Key? key,
@@ -29,17 +30,19 @@ class CustomDropdown extends StatefulWidget {
     this.suffixIcon,
     this.height,
     this.widthDropMenuItem,
-    this.textStyle, // Thêm thuộc tính textStyle vào constructor
-    this.labelTextStyle, // Thêm thuộc tính labelTextStyle vào constructor
-    this.hintTextStyle, // Thêm thuộc tính hintTextStyle vào constructor
+    this.textStyle,
+    this.labelTextStyle,
+    this.hintTextStyle,
+    this.itemBuilder, 
+    this.borderRadius// Add itemBuilder to the constructor
   }) : super(key: key);
 
   @override
-  State<CustomDropdown> createState() => _CustomDropdownState();
+  State<CustomDropdown<T>> createState() => _CustomDropdownState<T>();
 }
 
-class _CustomDropdownState extends State<CustomDropdown> {
-  String? _selectedItem;
+class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
+  T? _selectedItem;
 
   @override
   void initState() {
@@ -49,58 +52,68 @@ class _CustomDropdownState extends State<CustomDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<String>(
-      padding: EdgeInsets.only(
-        top: 10,
-      ),
+    return DropdownButtonFormField<T>(
       isExpanded: true,
       menuMaxHeight: widget.height,
-      style: widget.textStyle ?? TextStyle( // Sử dụng widget.textStyle hoặc tạo một TextStyle mặc định nếu widget.textStyle là null
+      style: widget.textStyle ?? TextStyle(
         color: Colors.black,
         fontSize: PDimensions.FONT_SIZE_H6,
       ),
-      value: _selectedItem!.isNotEmpty ? _selectedItem : null,
-      items: widget.items.map((String item) {
-        return DropdownMenuItem(
-          value: item,
+      value: _selectedItem,
+      items: widget.items.map((T value) {
+        return DropdownMenuItem<T>(
+          value: value,
           child: SizedBox(
             width: widget.widthDropMenuItem,
-            child: Text(item),
+            child: widget.itemBuilder != null 
+                ? widget.itemBuilder!(value) 
+                : Text(
+                    value.toString(),
+                    style: widget.textStyle ?? TextStyle(
+                      color: Colors.black,
+                      fontSize: PDimensions.FONT_SIZE_H6,
+                    ),
+                  ),
           ),
         );
       }).toList(),
-      onChanged: (String? newValue) {
+      onChanged: (T? newValue) {
         setState(() {
           _selectedItem = newValue;
         });
         widget.onChanged(newValue);
       },
       decoration: InputDecoration(
+        
         filled: true,
         fillColor: Colors.white,
         labelText: widget.labelText,
         hintText: widget.hintText,
-          labelStyle: widget.labelTextStyle,
-          hintStyle: widget.hintTextStyle,
+        labelStyle: widget.labelTextStyle,
+        hintStyle: widget.hintTextStyle,
         prefixIcon: widget.prefixIcon != null ? Icon(widget.prefixIcon) : null,
         suffixIcon: widget.suffixIcon != null
             ? Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(width: 8),
-            Icon(widget.suffixIcon),
-          ],
-        )
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(width: 8),
+                  Icon(widget.suffixIcon),
+                ],
+              )
             : null,
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.zero,
+           border: OutlineInputBorder(
+            borderRadius: widget.borderRadius ?? BorderRadius.circular(10.0), // Sử dụng giá trị mặc định là 10.0 nếu giá trị borderRadius là null
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: widget.borderRadius  ?? BorderRadius.circular(10.0), // Sử dụng giá trị mặc định là 10.0 nếu giá trị borderRadius là null
+            borderSide: BorderSide.none,
+          ),
+        focusedBorder:  OutlineInputBorder(
+         borderRadius: widget.borderRadius  ?? BorderRadius.circular(10.0), // Sử dụng giá trị mặc định là 10.0 nếu giá trị borderRadius là null
+       borderSide: BorderSide.none,
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.zero,
-        ),
-        contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+        contentPadding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 16.0),
       ),
     );
   }

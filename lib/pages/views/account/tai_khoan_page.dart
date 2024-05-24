@@ -19,18 +19,15 @@ class TaiKhoanPage extends GetView<TaiKhoanController> {
               child: CircularProgressIndicator(),
             );
           }
-          return RefreshIndicator(
-            onRefresh: () async{ 
-              return await Future.delayed(const Duration(seconds: 2));
-             },
-            child: Scaffold(
+          return Obx(
+            () => Scaffold(
               appBar: AppBar(
                 backgroundColor: ColorPeanut.APPBAR_BACKGROUND,
               ),
               body: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
+                    SizedBox(
                       height: DeviceUtils.getScaledHeight(context, 0.14),
                       child: Stack(
                         children: [
@@ -41,15 +38,16 @@ class TaiKhoanPage extends GetView<TaiKhoanController> {
                           Positioned(
                             child: Center(
                               child: Container(
-                                width: DeviceUtils.getScaledWidth(context, 0.35),
+                                width:
+                                    DeviceUtils.getScaledWidth(context, 0.35),
                                 height:
                                     DeviceUtils.getScaledHeight(context, 0.15),
-                                decoration:  BoxDecoration(
+                                decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                         image: NetworkImage(
-                                          '${controller.taiKhoanResponse.avatar != null ? controller.taiKhoanResponse.avatar :  Images.anh_test}',
-                                         ),
+                                          '${controller.taiKhoanResponse.value.avatar != null ? controller.taiKhoanResponse.value.avatar : 'https://i.pinimg.com/564x/8d/f5/4e/8df54e5b502f47aa490eb0820f485d1d.jpg'}',
+                                        ),
                                         fit: BoxFit.cover)),
                               ),
                             ),
@@ -57,9 +55,10 @@ class TaiKhoanPage extends GetView<TaiKhoanController> {
                         ],
                       ),
                     ),
-                  
                     Text(
-                      controller.taiKhoanResponse.name == "null" ?  controller.taiKhoanResponse.email.toString() : controller.taiKhoanResponse.name.toString(),
+                      controller.taiKhoanResponse.value.name == "null"
+                          ? controller.taiKhoanResponse.value.email.toString()
+                          : controller.taiKhoanResponse.value.name.toString(),
                       style: TextStyle(
                           fontSize: PDimensions.FONT_SIZE_H6,
                           fontWeight: FontWeight.bold),
@@ -104,7 +103,7 @@ class TaiKhoanPage extends GetView<TaiKhoanController> {
                             img: Images.icon_dang_xuat,
                             title: 'Đăng xuất',
                             onTap: () {
-                              print('test hàm');
+                              controller.logout();
                             }),
                       ],
                     ),

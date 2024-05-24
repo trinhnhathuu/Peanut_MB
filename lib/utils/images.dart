@@ -22,5 +22,6 @@ class Images{
   static const String icon_thong_tin_suc_khoe= 'assets/icons/icon_thong_tin_suc_khoe.png';
   static const String icon_dang_ky_bac_si= 'assets/icons/icon_dang_ky_bac_si.png';
   static const String icon_dang_xuat= 'assets/icons/icon_dang_xuat.png';
+  static const String img_chi_tiet_kham = 'assets/images/chi_tiet_kham.jpg';
 
 }

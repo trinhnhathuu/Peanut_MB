@@ -52,13 +52,11 @@ class ULichHenPage extends GetView<ULichHenController> {
                 ),
               ),
             ),
+
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                  if(controller.lichhen.isEmpty)
-                    chuaCoLichHen(context),
-                  if(controller.lichhen.isNotEmpty)
                   coLichHen(context)
                   ],
                 ),
@@ -69,93 +67,7 @@ class ULichHenPage extends GetView<ULichHenController> {
   }
 }
 
-Widget chuaCoLichHen(
-    BuildContext context
-    ){
-  return  Center(
-    child: Container(
-      margin: EdgeInsets.only(
-          top: PDimensions.SPACE_SIZE_05),
-      width: DeviceUtils.getScaledWidth(context, 0.9),
-      height: DeviceUtils.getScaledHeight(context, 0.4),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Flex(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        direction: Axis.vertical,
-        children: [
-          Image.asset(Images.anh_lich_hen),
-          Text(' Hiện tại chưa có lịch hẹn nào'),
-          GestureDetector(
-            onTap: (){
-              Get.toNamed(AppRoutes.U_DANG_KY_LICH_HEN);
-            },
-            child: Container(
-              alignment: Alignment.center,
-              width: DeviceUtils.getScaledWidth(context, 0.4),
-              height: DeviceUtils.getScaledHeight(context, 0.05),
-              decoration: BoxDecoration(
-                  color: ColorPeanut.BUTTON_DONGY,
-                  borderRadius: BorderRadius.circular(100.0)
-              ),
-              child: Text('Đặt lịch hẹn ngay',style: TextStyle(
-                  color: Colors.white
 
-              ),),
-            ),
-          ),
-          Container(
-            width: DeviceUtils.getScaledWidth(context, 0.8),
-            child: RichText(
-                text: TextSpan(
-                    text: '1.Kiểm tra bạn đã kết nố hồ sơ ý tết chưa',
-                    style: TextStyle(
-                      fontSize: PDimensions.FONT_DEFAULT,
-                      color: Colors.grey,
-                    ),
-                    children: [
-                      TextSpan(
-                        text:" tại đây",
-                        style: TextStyle(
-                            color: Colors.blueAccent,
-                            fontSize: PDimensions.FONT_DEFAULT
-
-                        ),
-                      )
-                    ]
-                )
-            ),
-          ),
-
-          Container(
-            width: DeviceUtils.getScaledWidth(context, 0.8),
-            child: RichText(
-                text: TextSpan(
-                    text: '2.Kiểm tra thông tin đặt lịch và thông tin hồ sơ cá nhân có chính xác không',
-                    style: TextStyle(
-                      fontSize: PDimensions.FONT_DEFAULT,
-                      color: Colors.grey,
-
-                    ),
-                    children: [
-                      TextSpan(
-                        text:" tại đây",
-                        style: TextStyle(
-                            color: Colors.blueAccent,
-                            fontSize: PDimensions.FONT_DEFAULT
-                        ),
-                      )
-                    ]
-                )
-            ),
-          )
-
-        ],),
-    ),
-  );
-}
 
 Widget coLichHen(BuildContext context){
   return DefaultTabController(

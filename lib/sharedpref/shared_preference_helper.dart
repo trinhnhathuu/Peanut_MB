@@ -26,6 +26,8 @@ class SharedPreferenceHelper {
     return _sharedPreference.remove(Preferences.isLogin);
   }
 
+  // userId: ----------------------------------------------------------
+  // lưu userID
   Future<String?> get userId async {
     return _sharedPreference.getString(Preferences.userId);
   }
@@ -34,13 +36,18 @@ class SharedPreferenceHelper {
     return _sharedPreference.setString(Preferences.userId, id);
   }
 
+  Future<bool> removeUserId() async {
+    return _sharedPreference.remove(Preferences.userId);
+  }
+
   // isAllowSwitchRole: ----------------------------------------------------------
   Future<bool?> get isAllowSwitchRole async {
     return _sharedPreference.getBool(Preferences.isAllowSwitchRole);
   }
 
   Future<bool> saveIsAllowSwitchRole({required bool isAllowSwitchRole}) async {
-    return _sharedPreference.setBool(Preferences.isAllowSwitchRole, isAllowSwitchRole);
+    return _sharedPreference.setBool(
+        Preferences.isAllowSwitchRole, isAllowSwitchRole);
   }
 
   Future<bool> removeIsAllowSwitchRole() async {
@@ -115,7 +122,8 @@ class SharedPreferenceHelper {
   Future<bool> removePassword() async {
     return _sharedPreference.remove(Preferences.password);
   }
-   Future<String?> get typeAccount async {
+
+  Future<String?> get typeAccount async {
     return _sharedPreference.getString(Preferences.typeAccount);
   }
 

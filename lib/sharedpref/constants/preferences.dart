@@ -5,7 +5,7 @@ class Preferences {
   static const String refresh = "refresh";
   static const String username = "username";
   static const String password = "password";
-  static const String userId = "user";
+  static const String userId = "userId";
   static const String address = "address";
   static const String isLogin = "login";
   static const String isFirst = "first";

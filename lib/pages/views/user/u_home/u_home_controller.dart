@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:peanut_app/models/response/poster_response.dart';
@@ -25,6 +27,11 @@ class UHomeController extends GetxController {
     getPoster();
   }
 
+  void onRefresh() {
+    // getData();
+    getPoster();
+  }
+
   void getData() {
     sl.get<SharedPreferenceHelper>().userId.then((value) => {
           taiKhoanProvider.findById(
@@ -45,6 +52,7 @@ class UHomeController extends GetxController {
   void getPoster() {
     posterProvider.getALLPoster(onSuccess: (data) {
       listPoster = data;
+      print(listPoster[0].toJson());
       isLoading = false;
       update();
     }, onError: (onError) {
@@ -52,7 +60,7 @@ class UHomeController extends GetxController {
     });
   }
 
-  void toPosterDetail( PosterResponse posterResponse) {
+  void toPosterDetail(PosterResponse posterResponse) {
     Get.toNamed(AppRoutes.U_CHI_TIET_BAI_VIET, arguments: posterResponse);
   }
 }

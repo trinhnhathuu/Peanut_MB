@@ -11,7 +11,28 @@ class DoctorSignUpRepository {
   // đăng ký
   Future<ApiResponse> create(DoctorSignUpRequest doctorSignUpRequest) async {
     try {
-      final response =  await dioClient!.post('/doctor', data: doctorSignUpRequest.toJson());
+      final response =
+          await dioClient!.post('/doctor', data: doctorSignUpRequest.toJson());
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(e);
+    }
+  }
+
+  // tìm kiếm bác sĩ idHospital
+
+  Future<ApiResponse> searchDoctorByHospitalId(String idHospital) async {
+    try {
+      final response = await dioClient!.get('/doctor/hospital/$idHospital');
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(e);
+    }
+  }
+
+  Future<ApiResponse> findById(String id) async {
+    try {
+      final response = await dioClient!.get('/doctor/user/$id');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(e);

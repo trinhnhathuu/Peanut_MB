@@ -6,7 +6,7 @@ class ProvinceResponse {
   ProvinceResponse({this.id, this.name, this.code});
 
   ProvinceResponse.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['_id'];
     name = json['name'];
     code = json['code'];
   }

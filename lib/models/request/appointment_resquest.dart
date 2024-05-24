@@ -6,8 +6,8 @@ class AppointmentRequest {
   String? time;
   String? status;
   String? gender;
-  String? provinceCode;
-  String? hospitalCode;
+  String? idProvince;
+  String? idHospital;
   String? name;
   String? birthday;
   String? phone;
@@ -21,8 +21,8 @@ class AppointmentRequest {
     this.time,
     this.status,
     this.gender,
-    this.provinceCode,
-    this.hospitalCode,
+    this.idProvince,
+    this.idHospital,
     this.name,
     this.birthday,
     this.phone,
@@ -31,14 +31,14 @@ class AppointmentRequest {
 
   AppointmentRequest.fromJson(Map<String, dynamic> json) {
     id = json['_id']?.toString();
-    userId = json['user_id']?.toString();
-    doctorId = json['doctor_id']?.toString();
+    userId = json['userId']?.toString();
+    doctorId = json['doctorId']?.toString();
     date = json['date']?.toString();
     time = json['time']?.toString();
     status = json['status']?.toString();
     gender = json['gender']?.toString();
-    provinceCode = json['provinceCode']?.toString();
-    hospitalCode = json['hospitalCode']?.toString();
+    idProvince = json['idProvince']?.toString();
+    idHospital = json['idHospital']?.toString();
     name = json['name']?.toString();
     birthday = json['birthday']?.toString();
     phone = json['phone']?.toString();
@@ -48,14 +48,14 @@ class AppointmentRequest {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (id != null) data['_id'] = id;
-    if (userId != null) data['user_id'] = userId;
-    if (doctorId != null) data['doctor_id'] = doctorId;
+    if (userId != null) data['userId'] = userId;
+    if (doctorId != null) data['doctorId'] = doctorId;
     if (date != null) data['date'] = date;
     if (time != null) data['time'] = time;
     if (status != null) data['status'] = status;
     if (gender != null) data['gender'] = gender;
-    if (provinceCode != null) data['provinceCode'] = provinceCode;
-    if (hospitalCode != null) data['hospitalCode'] = hospitalCode;
+    if (idProvince != null) data['idProvince'] = idProvince;
+    if (idHospital != null) data['idHospital'] = idHospital;
     if (name != null) data['name'] = name;
     if (birthday != null) data['birthday'] = birthday;
     if (phone != null) data['phone'] = phone;
@@ -65,6 +65,6 @@ class AppointmentRequest {
 
   @override
   String toString() {
-    return 'AppointmentRequest(id: $id, userId: $userId, doctorId: $doctorId, date: $date, time: $time, status: $status, gender: $gender, provinceCode: $provinceCode, hospitalCode: $hospitalCode, name: $name, birthday: $birthday, phone: $phone, description: $description)';
+    return 'AppointmentRequest(id: $id, userId: $userId, doctorId: $doctorId, date: $date, time: $time, status: $status, gender: $gender, idProvince: $idProvince, hospitalCode: $idHospital, name: $name, birthday: $birthday, phone: $phone, description: $description)';
   }
 }

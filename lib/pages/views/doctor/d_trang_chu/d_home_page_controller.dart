@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:peanut_app/di_container.dart';
@@ -10,7 +9,7 @@ import '../../../../providers/tai_khoan_provider.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../sharedpref/shared_preference_helper.dart';
 
-class DHomePageController extends GetxController{
+class DHomePageController extends GetxController {
   bool isLoading = true;
   RxInt tabIndex = 0.obs;
   TaiKhoanProvider taiKhoanProvider = GetIt.I.get<TaiKhoanProvider>();
@@ -22,6 +21,13 @@ class DHomePageController extends GetxController{
   @override
   void onInit() {
     super.onInit();
+    getData();
+    getPoster();
+  }
+
+  Future<void> onRefresh() async {
+    isLoading = true;
+    print('kkk');
     getData();
     getPoster();
   }
@@ -51,7 +57,7 @@ class DHomePageController extends GetxController{
     });
   }
 
-  void toPosterDetail( PosterResponse posterResponse) {
+  void toPosterDetail(PosterResponse posterResponse) {
     Get.toNamed(AppRoutes.U_CHI_TIET_BAI_VIET, arguments: posterResponse);
   }
 }

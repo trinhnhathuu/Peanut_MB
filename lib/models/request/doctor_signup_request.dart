@@ -1,3 +1,4 @@
+
 class DoctorSignUpRequest {
   String? id;
   String? userId;
@@ -5,8 +6,8 @@ class DoctorSignUpRequest {
   String? phoneWork;
   String? emailWork;
   String? hospitalAddress;
-  String? hospitalName;
-  String? appointment;
+  String? idHospital;
+  String? department;
   double? lng;
   double? lat;
   List? imageCard;
@@ -18,8 +19,8 @@ class DoctorSignUpRequest {
       this.phoneWork,
       this.emailWork,
       this.hospitalAddress,
-      this.hospitalName,
-      this.appointment,
+      this.idHospital,
+      this.department,
       this.lng,
       this.lat,
       this.imageCard});
@@ -35,10 +36,10 @@ class DoctorSignUpRequest {
     hospitalAddress = (json['hospitalAddress'] == null)
         ? null
         : json['hospitalAddress'].toString();
-    hospitalName =
-        (json['hospitalName'] == null) ? null : json['hospitalName'].toString();
-    appointment =
-        (json['appointment'] == null) ? null : json['appointment'].toString();
+    idHospital =
+        (json['idHospital'] == null) ? null : json['idHospital'].toString();
+    department =
+        (json['department'] == null) ? null : json['department'].toString();
    lat = double.tryParse(json['lat'].toString());
     lng = double.tryParse(json['lng'].toString());
    if (json['imageCard'] != null) {
@@ -57,8 +58,8 @@ class DoctorSignUpRequest {
     if(phoneWork != null) data['phoneWork'] = phoneWork;
     if(emailWork != null) data['emailWork'] = emailWork;
     if(hospitalAddress != null) data['hospitalAddress'] = hospitalAddress;
-    if(hospitalName != null) data['hospitalName'] = hospitalName;
-    if(appointment != null) data['appointment'] = appointment;
+    if(idHospital != null) data['idHospital'] = idHospital;
+    if(department != null) data['department'] = department;
     if(lng != null) data['lng'] = lng;
     if(lat != null) data['lat'] = lat;
     if(imageCard != null) data['imageCard'] = imageCard;

@@ -1,9 +1,11 @@
 import 'package:get_it/get_it.dart';
+import 'package:peanut_app/network/repository/appointment_repository.dart';
 import 'package:peanut_app/network/repository/doctor_signup_repository.dart';
 import 'package:peanut_app/network/repository/hospital_repository.dart';
 import 'package:peanut_app/network/repository/poster_repository.dart';
 import 'package:peanut_app/network/repository/provinces_repository.dart';
 import 'package:peanut_app/network/repository/tai_khoan_repository.dart';
+import 'package:peanut_app/providers/appointment_provider.dart';
 import 'package:peanut_app/providers/doctor_signup_provider.dart';
 import 'package:peanut_app/providers/hospital_provider.dart';
 import 'package:peanut_app/providers/poster_provider.dart';
@@ -37,4 +39,7 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => HospitalProvider());
   sl.registerLazySingleton(() => HospitalRepository());
+
+    sl.registerLazySingleton(() => AppointmentProvider());
+  sl.registerLazySingleton(() => AppointmentRepository());
 }

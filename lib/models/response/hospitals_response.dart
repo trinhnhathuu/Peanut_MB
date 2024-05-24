@@ -7,7 +7,7 @@ class HospitalResponse {
   HospitalResponse({this.id, this.name, this.provinceCode, this.code});
 
   HospitalResponse.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = (json['_id'] == null) ? null : json['_id'].toString();
     name = json['name'];
     provinceCode = json['provinceCode'];
     code = json['code'];
@@ -20,5 +20,9 @@ class HospitalResponse {
     if (provinceCode != null) data['provinceCode'] = provinceCode;
     if (code != null) data['code'] = code;
     return data;
+  }
+  @override
+  String toString(){
+    return name.toString();
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:peanut_app/models/request/tai_khoan_request.dart';
+import 'package:peanut_app/models/response/tai_khoan_response.dart';
 import 'package:peanut_app/models/response/token_key_response.dart';
 import 'package:peanut_app/providers/tai_khoan_provider.dart';
 
@@ -14,19 +14,18 @@ import '../../../utils/app_constants.dart';
 import '../../basewidget/upload_image.dart';
 
 class LoginController extends GetxController {
-  bool taiKhoan = false;
+  bool taiKhoan = true;
   bool isObscure = true;
   TextEditingController hoTen = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController matKhau = TextEditingController();
   TaiKhoanRequest taiKhoanRequest = TaiKhoanRequest();
+  TaiKhoanResponse taiKhoanResponse = TaiKhoanResponse();
   final TaiKhoanProvider taiKhoanProvider = GetIt.I.get<TaiKhoanProvider>();
   TokenKeyResponse tokenKeyResponse = TokenKeyResponse();
-  
+
   @override
-  void onInit() {
-   
-  }
+  void onInit() {}
 
   IconButton showPassWord() {
     return IconButton(
@@ -63,6 +62,12 @@ class LoginController extends GetxController {
       taiKhoanProvider.create(
           data: taiKhoanRequest,
           onSuccess: (taiKhoanRequest) {
+            taiKhoan = true;
+            email.clear();
+            matKhau.clear();
+            hoTen.clear();
+            update();
+            FocusScope.of(Get.context!).unfocus();
             Get.snackbar("Thông báo", "Đăng ký thành công",
                 snackPosition: SnackPosition.TOP);
           },
@@ -73,41 +78,41 @@ class LoginController extends GetxController {
     } else {
       taiKhoanProvider.findByEmail(
           data: taiKhoanRequest,
-          onSuccess: (taiKhoanRequest, tokenKeyResponse) {
-            sl.get<SharedPreferenceHelper>().saveUserId(taiKhoanRequest.id!);
+          onSuccess: (taiKhoanResponse, tokenKeyResponse) {
+            sl.get<SharedPreferenceHelper>().saveUserId(taiKhoanResponse.id!);
             sl
                 .get<SharedPreferenceHelper>()
                 .saveAccessToken(tokenKeyResponse.accessToken!);
             sl
                 .get<SharedPreferenceHelper>()
                 .saveRefreshToken(tokenKeyResponse.refreshToken!);
-            sl
-                .get<SharedPreferenceHelper>()
-                .saveTypeAccount(taiKhoanRequest.role!.first.toString());
+           
             tokenKeyResponse = tokenKeyResponse;
-
-            print(taiKhoanRequest.toJson());
-          
-            if (taiKhoanRequest.role!.last.toString() == ROLE_USER || taiKhoanRequest.role!.first.toString() == ROLE_USER) {
-              Get.offAllNamed(AppRoutes.U_DASHBOARD,
-                  predicate: ModalRoute.withName(AppRoutes.U_DASHBOARD));
-              Get.snackbar("Thông báo", "Đăng nhập thành công",
-                  snackPosition: SnackPosition.TOP);
-            } else if (taiKhoanRequest.role!.last.toString() == ROLE_DOCTOR) {
+            if (taiKhoanResponse.role!.last.toString() == ROLE_DOCTOR) {
+               sl
+                .get<SharedPreferenceHelper>()
+                .saveTypeAccount(taiKhoanResponse.role!.last.toString());
               Get.offAllNamed(AppRoutes.D_DASHBOARD,
                   predicate: ModalRoute.withName(AppRoutes.D_DASHBOARD));
-              Get.snackbar("Thông báo", "Đăng nhập thành công",
+              Get.snackbar("Thông báo 😀", "Đăng nhập thành công",
+                  snackPosition: SnackPosition.TOP);
+            } else {
+               sl
+                .get<SharedPreferenceHelper>()
+                .saveTypeAccount(taiKhoanResponse.role!.first.toString());
+              Get.offAllNamed(AppRoutes.U_DASHBOARD,
+                  predicate: ModalRoute.withName(AppRoutes.U_DASHBOARD));
+              Get.snackbar(" 😀", "Đăng nhập này",
                   snackPosition: SnackPosition.TOP);
             }
+           
             update();
           },
           onError: (err) {
-            print(err);
+            Get.snackbar(" 😀", "Đăng ký thông bị");
             Get.snackbar("Thông báo", "Email hoặc mật khẩu của bạn bị sai",
                 snackPosition: SnackPosition.TOP);
           });
     }
   }
-
-
 }
