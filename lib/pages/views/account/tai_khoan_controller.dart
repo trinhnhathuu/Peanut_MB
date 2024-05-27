@@ -11,11 +11,14 @@ class TaiKhoanController extends GetxController {
   bool isLoading = true;
   TaiKhoanProvider taiKhoanProvider = GetIt.I.get<TaiKhoanProvider>();
   var taiKhoanResponse = TaiKhoanResponse().obs;
-
+  String typeAccount = '';
   @override
   void onInit() {
     super.onInit();
     getData();
+    sl.get<SharedPreferenceHelper>().typeAccount.then((value) => {
+      typeAccount = value!
+    });
   }
 
   void onRefresh() {
@@ -29,8 +32,6 @@ class TaiKhoanController extends GetxController {
               id: value!,
               onSuccess: (data) {
                 taiKhoanResponse.value = data;
-                print(taiKhoanResponse.toJson());
-                print(data);
                 isLoading = false;
                 update();
               },
@@ -40,22 +41,20 @@ class TaiKhoanController extends GetxController {
         });
   }
 
+  void goToQlBaiViet(){
+    Get.toNamed(AppRoutes.QL_BAI_VIET, arguments: taiKhoanResponse.value);
+  }
+
   void logout() {
-      sl.get<SharedPreferenceHelper>().removeUserId();
-            sl
-                .get<SharedPreferenceHelper>()
-                .removeAccessToken();
-            sl
-                .get<SharedPreferenceHelper>()
-                .removeRefreshToken();
-            sl
-                .get<SharedPreferenceHelper>()
-                .removeTypeAccount();
-      
-      Get.offAllNamed(AppRoutes.LOGIN);
-      Get.showSnackbar(const GetBar(
-        message: 'Đăng xuất thành công',
-        duration: Duration(seconds: 2),
-      ));
+    sl.get<SharedPreferenceHelper>().removeUserId();
+    sl.get<SharedPreferenceHelper>().removeAccessToken();
+    sl.get<SharedPreferenceHelper>().removeRefreshToken();
+    sl.get<SharedPreferenceHelper>().removeTypeAccount();
+
+    Get.offAllNamed(AppRoutes.LOGIN);
+    Get.showSnackbar(const GetBar(
+      message: 'Đăng xuất thành công',
+      duration: Duration(seconds: 2),
+    ));
   }
 }

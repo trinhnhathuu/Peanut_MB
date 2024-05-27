@@ -7,7 +7,9 @@ import 'package:peanut_app/utils/color_peanut.dart';
 import 'package:peanut_app/utils/demensions.dart';
 import 'package:peanut_app/utils/device_utils.dart';
 
+import '../../../../../utils/date_converter.dart';
 import '../../../../../utils/images.dart';
+import '../../../../basewidget/text_field_custom.dart';
 
 class ChiTietBaiVietPage extends GetView<ChiTietBaiVietController>{
   @override
@@ -25,12 +27,12 @@ class ChiTietBaiVietPage extends GetView<ChiTietBaiVietController>{
                   Get.back();
                   print('cjecl');
                 },
-                  child: Icon(Icons.arrow_back_ios_sharp)),
+                  child: const Icon(Icons.arrow_back_ios_sharp)),
             ),
             body: Container(
 
               width: DeviceUtils.getScaledWidth(context, 0.9),
-              margin: EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(10.0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,90 +45,65 @@ class ChiTietBaiVietPage extends GetView<ChiTietBaiVietController>{
                   Text('${controller.posterResponse.content}',
                     softWrap: true,
                   ),
-                 
-                    Flex(direction: Axis.vertical,
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(Images.icon_news,
-                            width: PDimensions.FONT_SIZE_H5,
-                            height: PDimensions.FONT_SIZE_H5,
-                          ),
-                          Text('Tin tức liên quan',
-                            style: TextStyle(fontSize: PDimensions.FONT_SIZE_H5),
-                          )
-                        ],
+                    // )
+                    const Divider(
+                      thickness: 1.0,
+                    ),
+                    CustomTextField(
+                      controller:controller.contentController,
+                      maxLines: 3,
+                      hintText: 'Bình luận',
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    Container(
+                      child: ElevatedButton(
+                        onPressed: (){
+                          controller.addComment();
+                        },
+                        child: const Text('Gửi'),
                       )
-                    ],),
+                    ),
+
+                    // hiển thị list comment
                     Container(
                       width: DeviceUtils.getScaledWidth(context, 1),
                       child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: (BuildContext conext, index){
+                          itemCount: controller.listComment.length,
+                          itemBuilder: (BuildContext context, index){
                             return Container(
-
-                              margin: EdgeInsets.all(PDimensions.SPACE_SIZE_1X),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10.0)
-                              ),
-                              child:Flex(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              margin: const EdgeInsets.all(10.0),
+                              child: Flex(
                                 direction: Axis.horizontal,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.all(10.0),
-                                    height: DeviceUtils.getScaledHeight(context, 0.2),
-                                    child: Flex(direction: Axis.vertical,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [Text('Ngủ ngon làm như thế nào'),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            height: 20,
-                                            width: 20,
-                                            child: CircleAvatar(
-                                              backgroundImage: AssetImage(Images.anh_test,),
-                                            ),
-                                          ),
-                                          Text('quynhnga'),
-                                        ],
-                                      )],),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(10.0),
-
-                                    height: DeviceUtils.getScaledHeight(context, 0.2),
+                                    width: DeviceUtils.getScaledWidth(context, 0.8),
                                     child: Flex(
                                       direction: Axis.vertical,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                          Icon(Icons.more_horiz_rounded),
-                                        Container(
-                                          color: Colors.red,
-                                          width:50,
-                                          height: 50,
-                                          child: Image.asset(Images.anh_test,
-                                          width:50,
-                                          height: 50,
-                                          ),
-                                        ),
-                                        Text('16 giờ')
+                                        Flex(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          direction: Axis.horizontal, children: [
+                                          Text(controller.listComment[index].userId!.name.toString()),
+                                          Text(DateConverter.formattedDateLocalFull(controller.listComment[index].createdAt.toString())),
+                                        ]),
+                                        
+                                        Text(controller.listComment[index].content.toString()),
+
+                                       
                                       ],
                                     ),
-                                  )
+                                  ),
+
                                 ],
                               ),
                             );
                           }),
+
                     )
                   ],
                 ),

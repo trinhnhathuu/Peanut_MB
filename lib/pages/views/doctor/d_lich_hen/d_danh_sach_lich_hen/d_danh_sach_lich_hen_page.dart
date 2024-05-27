@@ -28,7 +28,7 @@ class DDanhSachLichHenPage extends GetView<DDanhSachLichHenController>{
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if(controller.lichHenList.isEmpty) Text('Trống'),
+                    if(controller.lichHenList.isEmpty) const Center(child: Text('Trống')),
                     if(controller.lichHenList.isNotEmpty)
                     ListView.builder(
                       shrinkWrap: true,

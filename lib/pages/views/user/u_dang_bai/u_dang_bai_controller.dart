@@ -37,7 +37,6 @@ class UBaiDangController extends GetxController {
               id: value!,
               onSuccess: (data) {
                 taiKhoanResponse = data;
-                print(data);
                 isLoading = false;
                 update();
               },

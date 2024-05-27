@@ -115,7 +115,7 @@ class ChiTietLichHenPage extends GetView<ChiTietLichHenController> {
                   padding: const EdgeInsets.all(16.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
+                      backgroundColor: Colors.red,
                     ),
                     onPressed: () {},
                     child: const Text('Hủy'),
@@ -130,7 +130,7 @@ class ChiTietLichHenPage extends GetView<ChiTietLichHenController> {
                       padding: const EdgeInsets.all(16.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
+                          backgroundColor: Colors.green,
                         ),
                         onPressed: () {},
                         child: const Text('Xác Nhận'),

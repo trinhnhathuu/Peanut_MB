@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:peanut_app/pages/views/user/u_home/u_home_controller.dart';
 import 'package:peanut_app/utils/color_peanut.dart';
+import 'package:peanut_app/utils/date_converter.dart';
 import 'package:peanut_app/utils/demensions.dart';
 import 'package:peanut_app/utils/device_utils.dart';
 import 'package:peanut_app/utils/images.dart';
@@ -238,9 +239,10 @@ class UHomePage extends GetView<UHomeController> {
                                               Get.context!, 0.1),
                                           height: DeviceUtils.getScaledHeight(
                                               Get.context!, 0.05),
-                                          child: const CircleAvatar(
-                                            backgroundImage: AssetImage(
-                                              Images.anh_test,
+                                          child:  CircleAvatar(
+                                            backgroundImage: NetworkImage(
+                                              controller.listPoster[index].userId!.avatar != null ? controller.listPoster[index]
+                                                  .userId!.avatar.toString(): 'https://i.pinimg.com/564x/87/55/0b/87550ba3fb61e8bfd7ff0c4bb61b5360.jpg'
                                             ),
                                           ),
                                         ),
@@ -260,31 +262,30 @@ class UHomePage extends GetView<UHomeController> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                      controller.listPoster[index]
-                                                          .userId!.name
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                        fontSize: PDimensions
-                                                            .FONT_SIZE_H6,
-                                                      )),
+                                                children: <Widget>[
+                                                  Flex(
+                                                    direction: Axis.horizontal,
+                                                    children: [Text(
+                                                        controller.listPoster[index]
+                                                            .userId!.name
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          fontSize: PDimensions
+                                                              .FONT_SIZE_H6,
+                                                        )),
+                                                        if(controller.listPoster[index].type == 'doctor')
+                                                        const Icon(Icons.add_circle, color: Colors.green, size: 15,)
+                                                        ]
+                                                  ),
                                                   Flex(
                                                     direction: Axis.horizontal,
                                                     children: [
-                                                      Text('16 giờ',
+                                                          Text(DateConverter.formattedDateLocalFull(controller.listPoster[index].createdAt.toString()), 
                                                           style: TextStyle(
                                                             fontSize: PDimensions
                                                                 .FONT_DEFAULT,
                                                           )),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Icon(
-                                                        Icons.more_horiz_rounded,
-                                                        size: PDimensions
-                                                            .FONT_SIZE_H5,
-                                                      )
+                                                   
                                                     ],
                                                   )
                                                 ],
@@ -323,14 +324,6 @@ class UHomePage extends GetView<UHomeController> {
                                                           .FONT_SIZE_SPAN,
                                                     ),
                                                   )),
-                                              Container(
-                                                alignment: Alignment.bottomLeft,
-                                                child: Icon(
-                                                  Icons.favorite_border_outlined,
-                                                  size:
-                                                      PDimensions.FONT_SIZE_SPAN,
-                                                ),
-                                              )
                                             ],
                                           ),
                                         )

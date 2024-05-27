@@ -8,6 +8,7 @@ import 'package:peanut_app/pages/views/user/u_lich_hen/u_lich_hen.dart';
 import 'package:peanut_app/routes/app_routes.dart';
 
 import '../pages/basewidget/googleMap/chon_vi_tri_page.dart';
+import '../pages/views/account/bai_viet/quan_ly_bai_viet_page.dart';
 import '../pages/views/account/u_dang_ky_bac_si/u_dang_ky_bac_si_page.dart';
 import '../pages/views/account/u_thong_tin_ca_nhan/chinh_sua_thong_tin/chinh_sua_thong_tin_ca_nhan_page.dart';
 import '../pages/views/account/u_thong_tin_ca_nhan/thong_tin_ca_nhan_page.dart';
@@ -87,6 +88,11 @@ class AppPages{
       GetPage(
       name:AppRoutes.MAN_HINH_BAN_DO,
       page:()=>ChonViTriPage(),
+    ),
+    /// quản lý bài viết
+      GetPage(
+      name:AppRoutes.QL_BAI_VIET,
+      page:()=>QuanLyBaiVietPage(),
     ),
   ];
 }

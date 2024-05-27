@@ -1,5 +1,6 @@
 // const String BASE_URL = 'https://peanut-be.onrender.com';
 const String BASE_URL = 'http://192.168.1.15:3039/v1/api';
+const String WS_URL = 'ws://192.168.1.15:3039/v1/api';
 
 const String KEY_MAP = 'M8qZJCjMTnT1TP9oRGCDhRl2UW2580LJ5SaV6SDj';
 const String ROLE_USER = "190c8c60af4c47018037af98e4fca537";

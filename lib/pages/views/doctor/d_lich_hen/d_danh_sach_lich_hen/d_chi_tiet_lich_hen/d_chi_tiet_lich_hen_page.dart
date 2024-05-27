@@ -111,7 +111,7 @@ class DChiTietLichHenPage extends GetView<DChiTietLichHenController>{
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
+                  backgroundColor: Colors.red,
                 ),
                 onPressed: () {},
                 child: Text('Hủy'),

@@ -49,6 +49,7 @@ class DDanhSachLichHenController extends GetxController {
         onSuccess: (data) {
           doctorResponse = data;
           getLichHen();
+          isLoading = false;
           update();
         },
         onError: (err) {});
@@ -59,7 +60,6 @@ class DDanhSachLichHenController extends GetxController {
         id: doctorResponse.id.toString(),
         onSuccess: (onSuccess) {
           lichHenList = onSuccess;
-          print(lichHenList[0].toJson());
           update();
           isLoading = false;
         },

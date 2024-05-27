@@ -17,5 +17,7 @@ class AppRoutes{
     static const String D_DASHBOARD = '/doctor_dashboard';
     static const String D_CHI_TIET_LICH_HEN = '/doctor_chi_tiet_lich_hen';
     static const String MAN_HINH_BAN_DO = '/MAN_HINH_BAN_DO';
+// quản lý bài viết
+    static const String QL_BAI_VIET = '/ql_bai_viet';
 
 }

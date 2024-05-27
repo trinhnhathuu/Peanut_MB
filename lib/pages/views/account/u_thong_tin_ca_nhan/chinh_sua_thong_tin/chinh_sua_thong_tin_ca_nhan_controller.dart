@@ -71,6 +71,15 @@ class ChinhSuaThongTinCaNhanController extends GetxController {
     }
     update();
   }
+  String anh(){
+    if(taiKhoanResponse.avatar != null){
+      return taiKhoanResponse.avatar!;
+    }
+    if(imageUrl.value != null){
+      return imageUrl.value;
+    }
+    return 'https://i.pinimg.com/564x/06/a5/7a/06a57ace69d0656fb296a45ed46755d9.jpg';
+  }
 
 
   void updateData() {
@@ -87,6 +96,8 @@ class ChinhSuaThongTinCaNhanController extends GetxController {
         onSuccess: (data) {
           print(data.toJson());
           Get.back();
+          Get.back();
+          Get.snackbar('Thông báo', 'Cập nhật thành công');
         },
         onError: (onError) {
           print(onError);

@@ -1,8 +1,6 @@
 
-import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:peanut_app/network/dio/logging_interceptor.dart';
 import '../../sharedpref/shared_preference_helper.dart';
@@ -201,7 +199,10 @@ Future<Response> patch(
     CancelToken? cancelToken,
   }) async {
     try {
-      options ??= Options(headers: {});
+      options ??= Options(headers: {
+       'Content-Type': 'application/json; charset=UTF-8',
+      'x-api-key': '761b3272de8b74357a603060ac4100b593f2debd4daf6064aa1605a0b6fbf83532473d5390f0aa6cad1b5211852b8d61e9670744f3f3e1ebc4b8707da86a82f6'
+      });
         uri = '${BASE_URL}$uri';
       final response = await dio!.delete(
         uri,

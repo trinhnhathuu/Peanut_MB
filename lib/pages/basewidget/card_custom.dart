@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:peanut_app/utils/color_peanut.dart';
 import 'package:peanut_app/utils/device_utils.dart';
 
 class CardCustom extends StatelessWidget {

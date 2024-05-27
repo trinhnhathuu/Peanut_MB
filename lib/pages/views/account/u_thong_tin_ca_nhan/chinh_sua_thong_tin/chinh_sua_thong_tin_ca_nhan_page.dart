@@ -22,7 +22,7 @@ class ChinhSuaThongTinCaNhanPage
           }
           return Scaffold(
             appBar: AppBar(
-              title: Text('Chỉnh sửa thông tin cá nhân'),
+              title: const Text('Chỉnh sửa thông tin cá nhân'),
               centerTitle: true,
             ),
             body: SingleChildScrollView(
@@ -33,10 +33,11 @@ class ChinhSuaThongTinCaNhanPage
                     child: Stack(
                       alignment: Alignment.bottomRight,
                       children: [
-                        const CircleAvatar(
+                         CircleAvatar(
                           radius: 60,
-                          backgroundImage: AssetImage(Images
-                              .anh_test), // Thay bằng đường dẫn ảnh của bạn
+                          backgroundImage:NetworkImage(
+                            controller.anh(),
+                          )// Thay bằng đường dẫn ảnh của bạn
                         ),
                         IconButton(
                           icon: Icon(Icons.camera_alt, color: Colors.white),

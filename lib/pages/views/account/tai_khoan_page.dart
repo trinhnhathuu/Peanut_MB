@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:peanut_app/pages/views/account/tai_khoan_controller.dart';
 import 'package:peanut_app/routes/app_routes.dart';
+import 'package:peanut_app/utils/app_constants.dart';
 import 'package:peanut_app/utils/demensions.dart';
 import 'package:peanut_app/utils/device_utils.dart';
 
@@ -46,7 +47,7 @@ class TaiKhoanPage extends GetView<TaiKhoanController> {
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                         image: NetworkImage(
-                                          '${controller.taiKhoanResponse.value.avatar != null ? controller.taiKhoanResponse.value.avatar : 'https://i.pinimg.com/564x/8d/f5/4e/8df54e5b502f47aa490eb0820f485d1d.jpg'}',
+                                          '${controller.taiKhoanResponse.value.avatar != '' ? controller.taiKhoanResponse.value.avatar.toString() : 'https://i.pinimg.com/564x/8d/f5/4e/8df54e5b502f47aa490eb0820f485d1d.jpg'}',
                                         ),
                                         fit: BoxFit.cover)),
                               ),
@@ -87,16 +88,20 @@ class TaiKhoanPage extends GetView<TaiKhoanController> {
                             img: Images.icon_bai_viet,
                             title: 'Bài Viết',
                             onTap: () {
-                              print('test hàm');
+                              // controller.goToQlBaiViet();
+                              print('alooooooooooooooooooooooooooooooo');
+                              Get.toNamed(AppRoutes.QL_BAI_VIET,
+                                  arguments: controller.taiKhoanResponse.value);
                             }),
                         _buildDivider(),
-                        _buildMenuItem(
-                            context: context,
-                            img: Images.icon_dang_ky_bac_si,
-                            title: 'Đăng ký Bác Sĩ',
-                            onTap: () {
-                              Get.toNamed(AppRoutes.DANG_KY_BAC_SI);
-                            }),
+                        if (controller.typeAccount != ROLE_DOCTOR)
+                          _buildMenuItem(
+                              context: context,
+                              img: Images.icon_dang_ky_bac_si,
+                              title: 'Đăng ký Bác Sĩ',
+                              onTap: () {
+                                Get.toNamed(AppRoutes.DANG_KY_BAC_SI);
+                              }),
                         _buildDivider(),
                         _buildMenuItem(
                             context: context,
