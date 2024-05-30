@@ -89,7 +89,6 @@ class TaiKhoanPage extends GetView<TaiKhoanController> {
                             title: 'Bài Viết',
                             onTap: () {
                               // controller.goToQlBaiViet();
-                              print('alooooooooooooooooooooooooooooooo');
                               Get.toNamed(AppRoutes.QL_BAI_VIET,
                                   arguments: controller.taiKhoanResponse.value);
                             }),

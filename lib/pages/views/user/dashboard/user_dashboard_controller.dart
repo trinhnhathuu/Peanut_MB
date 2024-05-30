@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:peanut_app/models/response/tai_khoan_response.dart';
+import 'package:peanut_app/providers/pregnancy_provider.dart';
 import 'package:peanut_app/providers/tai_khoan_provider.dart';
 import 'package:peanut_app/sharedpref/shared_preference_helper.dart';
 
 import '../../../../di_container.dart';
+import '../../../../models/request/pregnancy_request.dart';
+import '../../../../models/response/pregnancy_response.dart';
 
 class DashBoardUserController extends GetxController {
   RxInt tabIndex = 0.obs;
@@ -12,6 +15,10 @@ class DashBoardUserController extends GetxController {
   DateTime? currentBackPressTime;
   TaiKhoanProvider taiKhoanProvider = GetIt.I.get<TaiKhoanProvider>();
   TaiKhoanResponse taiKhoanResponse = TaiKhoanResponse();
+  PregnancyProvider pregnancyProvider = GetIt.I.get<PregnancyProvider>();
+  PregnancyResponse pregnancyResponse = PregnancyResponse();
+  PregnancyRequest pregnancyRequest = PregnancyRequest();
+  bool isPregnancy = false;
 
   @override
   void onInit() {
@@ -45,12 +52,28 @@ class DashBoardUserController extends GetxController {
                 print(data);
                 isLoading = false;
                 update();
-                // Get.showSnackbar(
-                //     GetSnackBar(title: 'Chào mừng', message: data.name));
+                getPregnacy(data.id.toString());
               },
               onError: (onError) {
                 print(onError);
               })
+        });
+  }
+
+  void getPregnacy(String userId) {
+    pregnancyProvider.getPregnancyByUserId(
+        userId: userId,
+        onSuccess: (data) {
+          pregnancyResponse = data;
+          print(pregnancyResponse.toJson());
+          if (pregnancyResponse != null) {
+            isPregnancy = true;
+            isLoading = false;
+            update();
+          }
+        },
+        onError: (err) {
+          print(err);
         });
   }
 }

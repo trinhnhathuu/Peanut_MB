@@ -102,7 +102,7 @@ class LoginController extends GetxController {
                 .saveTypeAccount(taiKhoanResponse.role!.first.toString());
               Get.offAllNamed(AppRoutes.U_DASHBOARD,
                   predicate: ModalRoute.withName(AppRoutes.U_DASHBOARD));
-              Get.snackbar(" 😀", "Đăng nhập này",
+              Get.snackbar("Chào mừng", "bạn đến với Peanut",
                   snackPosition: SnackPosition.TOP);
             }
            

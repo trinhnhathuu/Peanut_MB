@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:peanut_app/socket/socket_service.dart';
 import 'package:peanut_app/socket/web_socket.dart';
 import 'package:peanut_app/utils/size.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -12,6 +15,8 @@ import 'routes/app_routes.dart';
 import 'utils/app_constants.dart';
 import 'utils/color_peanut.dart';
 
+SocketService socketService = SocketService();
+WebSocketService socketService02 = WebSocketService();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
@@ -22,9 +27,9 @@ Future<void> main() async {
   await PSize.device;
 
   // Initialize the SocketService
-  SocketService  socketService = SocketService();
-  socketService.initializeSocket();
-
+  SocketService();
+  // socketService02.initializeSocket();
+  
   runApp(const MyApp());
 }
 

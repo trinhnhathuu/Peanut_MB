@@ -23,6 +23,7 @@ class QuanLyBaiVietController extends GetxController {
   void getArgument() {
     if (Get.arguments != null) {
       taiKhoanResponse = Get.arguments as TaiKhoanResponse;
+      userId = taiKhoanResponse.id.toString();
       print(taiKhoanResponse.toJson());
       getPosterByUserId(userId: taiKhoanResponse.id.toString());
       update();
@@ -50,8 +51,6 @@ class QuanLyBaiVietController extends GetxController {
       id: id,
       onSuccess: (data) {
         getPosterByUserId(userId: userId);
-        isLoading = false;
-        update();
       },
       onError: (onError) {
         print(onError);

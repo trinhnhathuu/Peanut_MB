@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:peanut_app/pages/views/user/u_thai_ki/u_thai_ky_controller.dart';
 import 'package:peanut_app/utils/color_peanut.dart';
+import 'package:peanut_app/utils/date_converter.dart';
 import 'package:peanut_app/utils/demensions.dart';
 import 'package:peanut_app/utils/device_utils.dart';
 
@@ -16,10 +17,15 @@ class ThaiKyPage extends GetView<ThaiKyController>{
     return GetBuilder(
         init: ThaiKyController(),
         builder: (controller) {
+          if(controller.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
           return Scaffold(
             appBar: AppBar(
               backgroundColor: ColorPeanut.APPBAR_BACKGROUND,
-              title: Text(
+              title: const Text(
                 "Theo dõi thai kỳ",
                 style: TextStyle(color: Colors.white),
               ),
@@ -70,10 +76,10 @@ class ThaiKyPage extends GetView<ThaiKyController>{
                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                        direction: Axis.vertical,children: [
                                        Text(
-                                           'Tuần thai thứ 2',
+                                           'Tuần thai thứ ${controller.pregnancyGuideResponse.week}',
                                        ),
                                        Text(
-                                         'ngày dự sinh 15/09/2024',
+                                         'ngày dự sinh ${DateConverter.formattedDateLocalFull(controller.pregnancyResponse.dueDate.toString())}',
                                          style: TextStyle(
                                            fontSize:PDimensions.FONT_SIZE_SPAN_0,
                                            color: ColorPeanut.TEXT_NOI_BAT,
@@ -108,32 +114,35 @@ class ThaiKyPage extends GetView<ThaiKyController>{
                                 unselectedLabelColor: ColorPeanut.TEXT_NOI_BAT,
                                 indicatorSize: TabBarIndicatorSize.tab,
                                 indicatorWeight : 20,
-                                indicator: BoxDecoration(
+                                indicator: const BoxDecoration(
                                   color: ColorPeanut.APPBAR_BACKGROUND,
                                 ),
                                 tabs: [
                                   Container(
-                                    color: Colors.white,
-                                    child: Text('Thai Nhi')),
+                                    child: const Text('Thai Nhi')),
                                   
-                                   Text('Mẹ bầu'),
+                                   const Text('Mẹ bầu'),
                                   
-                                   Text('Chú ý'),
+                                   const Text('Chú ý'),
                                   
                                 ],
                               ),
                               Container(
+                                alignment: Alignment.center,
                                 color: Colors.white,
                                 width:DeviceUtils.getScaledWidth(context, 0.8) ,
                                 height: DeviceUtils.getScaledWidth(context, 0.5),
-                                child: TabBarView(children: [
-                                  Container(
-                                    color:Colors.red,
-                                    child: Text(' thai khì'),
-                                  ),
-                                  Text('Mẹ bầu'),
-                                  Text('Chú ý')
-                                ]),
+                                child: Container(
+                                 margin: EdgeInsets.only(top: PDimensions.SPACE_SIZE_1X),
+                                  alignment: Alignment.center,
+                                  width: DeviceUtils.getScaledWidth(context, 0.6),
+                                  child: TabBarView(
+                                    children: [
+                                    Text(controller.pregnancyGuideResponse.pregnancyInfo.toString(),),
+                                     Text(controller.pregnancyGuideResponse.doctorAdvice.toString()),
+                                     Text(controller.pregnancyGuideResponse.notes.toString())
+                                  ]),
+                                ),
                               )
                             ],
                           ),

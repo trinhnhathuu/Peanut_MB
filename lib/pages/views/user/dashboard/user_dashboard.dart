@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:peanut_app/pages/views/user/dashboard/user_dashboard_controller.dart';
+import 'package:peanut_app/pages/views/user/u_thai_ki/u_form_dang_ky/u_dang_ky_thai_ky_page.dart';
 import 'package:peanut_app/utils/color_peanut.dart';
 import 'package:peanut_app/utils/device_utils.dart';
 
@@ -35,7 +36,10 @@ class DashBoardUserPage extends GetView<DashBoardUserController>{
                       index: controller.tabIndex.value,
                       children: [
                         UHomePage(),
+                        if(controller.isPregnancy)
                         ThaiKyPage(),
+                        if(!controller.isPregnancy)
+                        DangKyThaiKyFormPage(),
                         UBaiDangPage(),
                         ULichHenPage(),
                         TaiKhoanPage(),

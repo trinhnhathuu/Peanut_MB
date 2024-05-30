@@ -64,5 +64,15 @@ class PosterRepository {
       return ApiResponse.withError(e);
     }
   }
+
+   Future<ApiResponse> getPosterByBYT() async {
+   try {
+      final response =
+          await dioClient!.get('/poster/byt');
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(e);
+    }
+  }
   
 }

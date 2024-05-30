@@ -31,7 +31,7 @@ class ChiTietBaiVietPage extends GetView<ChiTietBaiVietController>{
             ),
             body: Container(
 
-              width: DeviceUtils.getScaledWidth(context, 0.9),
+              width: DeviceUtils.getScaledWidth(context, 1),
               margin: const EdgeInsets.all(10.0),
               child: SingleChildScrollView(
                 child: Column(
@@ -41,6 +41,7 @@ class ChiTietBaiVietPage extends GetView<ChiTietBaiVietController>{
                     Image.network(controller.posterResponse.image.toString()),
                   Text('${controller.posterResponse.title}',
                     softWrap: true,
+                    textAlign: TextAlign.center,
                   ),
                   Text('${controller.posterResponse.content}',
                     softWrap: true,

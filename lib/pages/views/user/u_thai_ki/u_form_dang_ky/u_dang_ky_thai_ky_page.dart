@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:peanut_app/pages/basewidget/text_field_custom.dart';
 import 'package:peanut_app/pages/views/user/u_thai_ki/u_form_dang_ky/u_dang_ky_thai_ky_controller.dart';
 import 'package:peanut_app/utils/color_peanut.dart';
 import 'package:peanut_app/utils/demensions.dart';
@@ -68,24 +69,32 @@ class DangKyThaiKyFormPage extends GetView<DangKyThaiKyFormController>{
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   direction: Axis.vertical,
                   children: [
-                    Text('Ngày dự sinh'),
-                    SizedBox(height: PDimensions.SPACE_SIZE_1X,),
-                    TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon:Image.asset(Images.ngay_du_sinh,
-                          width: 5,
-                          height: 5,
+                  
+                       Flex(
+                      direction: Axis.vertical,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Ngày dự sinh',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: PDimensions.FONT_SIZE_H6)),
+                        CustomTextField(
+                          controller: controller.ngay_du_sinh,
+                          readOnly: true,
+                          onTap: () {
+                            controller.showDatepicker(context,  controller.ngay_du_sinh);
+                            controller.update();
+                          },
+                          hintText: 'Vui lòng chọn ngày dự sinh',
+                          prefixIcon: Icons.calendar_today,
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                          hintStyle:
+                              TextStyle(fontSize: PDimensions.FONT_SIZE_SPAN),
                         ),
-                        border:  OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        hintText: 'Vui lòng chọn ngày dự sinh',
-                      ),
+                      ],
                     ),
                     SizedBox(height: PDimensions.SPACE_SIZE_5X,),
-                    Text('Hoặc'),
+                    
                     SizedBox(height: PDimensions.SPACE_SIZE_5X,),
                     Flex(direction: Axis.vertical,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,6 +102,8 @@ class DangKyThaiKyFormPage extends GetView<DangKyThaiKyFormController>{
                       Text('Tuần thai'),
                       SizedBox(height: PDimensions.SPACE_SIZE_1X,),
                       TextField(
+                        keyboardType: TextInputType.number,
+                        controller: controller.tuan_thai,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -120,7 +131,7 @@ class DangKyThaiKyFormPage extends GetView<DangKyThaiKyFormController>{
                     ),
                     height: DeviceUtils.getScaledHeight(context, 0.07),
                     width: DeviceUtils.getScaledWidth(context, 0.6),
-                    child: Text('Hoàn Thành', style: TextStyle(color: Colors.white),),
+                    child: const Text('Hoàn Thành', style: TextStyle(color: Colors.white),),
                   ),
                 )
               ],

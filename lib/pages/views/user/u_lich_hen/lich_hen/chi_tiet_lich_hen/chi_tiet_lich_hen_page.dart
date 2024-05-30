@@ -122,19 +122,16 @@ class ChiTietLichHenPage extends GetView<ChiTietLichHenController> {
                   ),
                 ),
                 if (controller.userRole == ROLE_DOCTOR)
-                  GestureDetector(
-                    onTap: () {
-                      controller.xacNhanLichHen();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                        ),
-                        onPressed: () {},
-                        child: const Text('Xác Nhận'),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorPeanut.BUTTON_DONGY,
                       ),
+                      onPressed: () {
+                        controller.xacNhanLichHen();
+                      },
+                      child: const Text('Xác nhận'),
                     ),
                   ),
               ],

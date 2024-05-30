@@ -28,12 +28,14 @@ class ChiTietLichHenController extends GetxController {
   }
 
   void xacNhanLichHen() {
+    print('elooo');
     appointmentRequest.status = '2';
     appointmentRequest.id = appointment!.id.toString();
     appointmentProvider.update(
         id: appointment!.id.toString(),
         data: appointmentRequest,
         onSuccess: (onSuccess) {
+          print('elooo2');
           print(onSuccess.toJson());
           Get.back();
         },

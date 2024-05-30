@@ -59,7 +59,7 @@ class PosterProvider {
 
   Future<void> delete({
     required String id,
-    required Function(PosterResponse poster) onSuccess,
+    required Function(PosterRequest poster) onSuccess,
     required Function(dynamic error) onError,
   }) async{
     final ApiResponse apiResponse = await posterRepository.delete(id);
@@ -67,7 +67,7 @@ class PosterProvider {
         apiResponse.response.statusCode! <= 300) {
       // call back data success
       final results = apiResponse.response.data as dynamic;
-      onSuccess(PosterResponse.fromJson(results as Map<String, dynamic>));
+      onSuccess(PosterRequest.fromJson(results as Map<String, dynamic>));
     } else {
       onError(apiResponse.error);
     }
@@ -87,6 +87,22 @@ class PosterProvider {
       onSuccess(PosterRequest.fromJson(results as Map<String, dynamic>));
     } else {
       onError(apiResponse.error);
+    }
+  }
+
+
+  Future<void> getPosterByBTY({
+    required Function(List<PosterResponse> posters) onSuccess,
+    required Function(dynamic error) onError,
+  }) async{
+    final ApiResponse apiResponse = await posterRepository.getPosterByBYT();
+    if (apiResponse.response.statusCode! >= 200 &&
+        apiResponse.response.statusCode! <= 300) {
+      // call back data success
+      final results = apiResponse.response.data as List<dynamic>;
+      onSuccess(results.map((e) => PosterResponse.fromJson(e as Map<String, dynamic>)).toList());
+        } else {
+          onError(apiResponse.error);
     }
   }
 }

@@ -19,12 +19,14 @@ class UHomeController extends GetxController {
   PosterProvider posterProvider = GetIt.I.get<PosterProvider>();
   PosterResponse posterResponse = PosterResponse();
   List<PosterResponse> listPoster = [];
+  List<PosterResponse> listPosterBYT = [];
 
   @override
   void onInit() {
     super.onInit();
     getData();
     getPoster();
+    getPosterByBTY();
   }
 
   void onRefresh() {
@@ -52,7 +54,18 @@ class UHomeController extends GetxController {
   void getPoster() {
     posterProvider.getALLPoster(onSuccess: (data) {
       listPoster = data;
-      print(listPoster[0].toJson());
+      // print(listPoster[0].toJson());
+      isLoading = false;
+      update();
+    }, onError: (onError) {
+      print(onError);
+    });
+  }
+
+  void getPosterByBTY() {
+    posterProvider.getPosterByBTY(onSuccess: (data) {
+      listPosterBYT = data;
+      // print(listPosterBYT[0].toJson());
       isLoading = false;
       update();
     }, onError: (onError) {
